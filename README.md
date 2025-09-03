@@ -65,6 +65,44 @@ cargo run -p user-cli -- remove -i 1
 cargo run -p user-cli -- -f my_users.json list
 ```
 
+## Manual functional testing
+
+Run these commands to verify the CLI features end-to-end using a temporary data file.
+
+```bash
+cd /Users/nabiltounarti/projects/user-management-system
+
+# Start fresh
+rm -f tmp_users.json
+
+# Add users
+cargo run -p user-cli -- -f tmp_users.json add -n "Alice" -e "alice@example.com" -a 25
+cargo run -p user-cli -- -f tmp_users.json add -n "Bob" -e "bob@example.com" -a 31
+
+# List (table)
+cargo run -p user-cli -- -f tmp_users.json list
+
+# List (JSON)
+cargo run -p user-cli -- -f tmp_users.json --format json list
+
+# Get by ID (JSON)
+cargo run -p user-cli -- -f tmp_users.json --format json get -i 1
+
+# Search by name (JSON)
+cargo run -p user-cli -- -f tmp_users.json --format json search -q bo
+
+# Update validation (should error)
+cargo run -p user-cli -- -f tmp_users.json update -i 1 || true
+
+# Update user
+cargo run -p user-cli -- -f tmp_users.json update -i 1 --age 26
+cargo run -p user-cli -- -f tmp_users.json --format json get -i 1
+
+# Remove user
+cargo run -p user-cli -- -f tmp_users.json remove -i 2
+cargo run -p user-cli -- -f tmp_users.json list
+```
+
 ## Features
 
 - **Workspace dependencies**: Shared dependencies defined at the workspace level
