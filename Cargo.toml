@@ -1,4 +1,10 @@
 
+[package]
+name = "user-management-system"
+version = "0.1.0"
+edition = "2021"
+description = "A user management system with library and CLI components"
+
 [workspace]
 resolver = "2"
 members = [
