@@ -1,5 +1,5 @@
-use anyhow::Result;
-use clap::{Parser, Subcommand};
+use anyhow::{anyhow, Result};
+use clap::{Parser, Subcommand, ValueEnum};
 use user_lib::UserManager;
 
 #[derive(Parser)]
@@ -11,6 +11,16 @@ struct Cli {
     
     #[arg(short, long, default_value = "users.json")]
     file: String,
+
+    /// Output format for results
+    #[arg(short = 'F', long = "format", value_enum, default_value_t = OutputFormat::Table)]
+    format: OutputFormat,
+}
+
+#[derive(Copy, Clone, Debug, Eq, PartialEq, ValueEnum)]
+enum OutputFormat {
+    Table,
+    Json,
 }
 
 #[derive(Subcommand)]
@@ -54,6 +64,54 @@ enum Commands {
     },
 }
 
+fn print_single_user(user: &user_lib::User, format: OutputFormat) -> Result<()> {
+    match format {
+        OutputFormat::Table => {
+            println!("{:<4} {:<20} {:<30} {:<4}", "ID", "Name", "Email", "Age");
+            println!("{}", "-".repeat(60));
+            println!(
+                "{:<4} {:<20} {:<30} {:<4}",
+                user.id, user.name, user.email, user.age
+            );
+            Ok(())
+        }
+        OutputFormat::Json => {
+            let json = serde_json::to_string_pretty(user)?;
+            println!("{}", json);
+            Ok(())
+        }
+    }
+}
+
+fn print_users(mut users: Vec<&user_lib::User>, format: OutputFormat) -> Result<()> {
+    // Sort by id ascending for stable output
+    users.sort_by_key(|u| u.id);
+    match format {
+        OutputFormat::Table => {
+            if users.is_empty() {
+                println!("No users found.");
+                return Ok(());
+            }
+            println!("{:<4} {:<20} {:<30} {:<4}", "ID", "Name", "Email", "Age");
+            println!("{}", "-".repeat(60));
+            for user in users {
+                println!(
+                    "{:<4} {:<20} {:<30} {:<4}",
+                    user.id, user.name, user.email, user.age
+                );
+            }
+            Ok(())
+        }
+        OutputFormat::Json => {
+            // Serialize owned copies for JSON
+            let owned: Vec<user_lib::User> = users.into_iter().cloned().collect();
+            let json = serde_json::to_string_pretty(&owned)?;
+            println!("{}", json);
+            Ok(())
+        }
+    }
+}
+
 fn main() -> Result<()> {
     let cli = Cli::parse();
     let mut manager = UserManager::new();
@@ -71,26 +129,14 @@ fn main() -> Result<()> {
         }
         Commands::List => {
             let users = manager.list_users();
-            if users.is_empty() {
-                println!("No users found.");
-            } else {
-                println!("{:<4} {:<20} {:<30} {:<4}", "ID", "Name", "Email", "Age");
-                println!("{}", "-".repeat(60));
-                for user in users {
-                    println!("{:<4} {:<20} {:<30} {:<4}", user.id, user.name, user.email, user.age);
-                }
-            }
+            print_users(users, cli.format)?;
         }
         Commands::Get { id } => {
             match manager.get_user(id) {
                 Some(user) => {
-                    println!("User found:");
-                    println!("ID: {}", user.id);
-                    println!("Name: {}", user.name);
-                    println!("Email: {}", user.email);
-                    println!("Age: {}", user.age);
+                    print_single_user(user, cli.format)?;
                 }
-                None => println!("User with ID {} not found.", id),
+                None => eprintln!("User with ID {} not found.", id),
             }
         }
         Commands::Remove { id } => {
@@ -99,16 +145,19 @@ fn main() -> Result<()> {
                     println!("Removed user: {} ({})", user.name, user.email);
                     manager.save_to_file(&cli.file)?;
                 }
-                Err(e) => println!("Error: {}", e),
+                Err(e) => eprintln!("Error: {}", e),
             }
         }
         Commands::Update { id, name, email, age } => {
+            if name.is_none() && email.is_none() && age.is_none() {
+                return Err(anyhow!("At least one of --name, --email, --age must be provided"));
+            }
             match manager.update_user(id, name, email, age) {
                 Ok(()) => {
                     println!("Updated user with ID: {}", id);
                     manager.save_to_file(&cli.file)?;
                 }
-                Err(e) => println!("Error: {}", e),
+                Err(e) => eprintln!("Error: {}", e),
             }
         }
         Commands::Search { query } => {
@@ -116,12 +165,7 @@ fn main() -> Result<()> {
             if users.is_empty() {
                 println!("No users found matching '{}'.", query);
             } else {
-                println!("Found {} user(s) matching '{}':", users.len(), query);
-                println!("{:<4} {:<20} {:<30} {:<4}", "ID", "Name", "Email", "Age");
-                println!("{}", "-".repeat(60));
-                for user in users {
-                    println!("{:<4} {:<20} {:<30} {:<4}", user.id, user.name, user.email, user.age);
-                }
+                print_users(users, cli.format)?;
             }
         }
     }
