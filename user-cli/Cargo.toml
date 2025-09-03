@@ -1,0 +1,14 @@
+
+[package]
+name = "user-cli"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "user-cli"
+path = "src/main.rs"
+
+[dependencies]
+user-lib = { path = "../user-lib" }
+clap = { workspace = true }
+anyhow = { workspace = true }
