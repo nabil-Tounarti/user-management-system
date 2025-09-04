@@ -6,6 +6,14 @@ members = [
     "user-cli"
 ]
 
+[workspace.package]
+version = "0.1.1"
+authors = ["Nabil Tounarti <nabil.tounarti@iex.ec>"]
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/nabil-Tounarti/user-management-system"
+homepage = "https://github.com/nabil-Tounarti/user-management-system"
+
 [workspace.dependencies]
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
