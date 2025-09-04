@@ -1,15 +1,20 @@
 {
     "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+    "draft-pull-request": true,
+    "separate-pull-requests": false,
+    "include-component-in-tag": false,
+    "include-v-in-tag": true,
+    "group-pull-request-title-pattern": "chore: release tee-worker-compute-rust ${version}",
     "packages": {
-        ".": {
-            "release-type": "rust"
-        },
-        "user-lib": {
-            "release-type": "rust"
-        },
-        "user-cli": {
-            "release-type": "rust"
-        }
+      ".": {
+        "release-type": "rust",
+        "changelog-path": "CHANGELOG.md",
+        "component": "tee-worker-compute-rust",
+        "extra-files": [
+          "user-lib/Cargo.toml",
+          "user-cli/Cargo.toml"
+        ]
+      }
     },
     "changelog-sections": [
       { "type": "feat", "section": "Features" },
