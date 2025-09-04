@@ -1,12 +1,15 @@
 {
     "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
     "packages": {
-      "user-lib": {
-        "release-type": "rust"
-      },
-      "user-cli": {
-        "release-type": "rust"
-      }
+        ".": {
+            "release-type": "rust"
+        },
+        "user-lib": {
+            "release-type": "rust"
+        },
+        "user-cli": {
+            "release-type": "rust"
+        }
     },
     "changelog-sections": [
       { "type": "feat", "section": "Features" },
