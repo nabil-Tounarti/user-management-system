@@ -57,11 +57,3 @@ test = "### Testing"
 build = "### Build System"
 ci = "### CI/CD"
 chore = "### Miscellaneous"
-
-# Optional: PR and commit linking
-[workspace.remote]
-# GitHub repository (adjust to your repo)
-name = "your-username/user-management-system"
-# Enable linking to commits and PRs
-link_commits = true
-link_prs = true
