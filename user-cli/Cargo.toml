@@ -1,15 +1,27 @@
-
 [package]
 name = "user-cli"
 version = "0.1.0"
-edition = "2024"
+edition = "2021"
+description = "Command-line interface for user management"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/your-username/user-management-system"
+homepage = "https://github.com/your-username/user-management-system"
+documentation = "https://docs.rs/user-cli"
+keywords = ["cli", "user", "management"]
+categories = ["command-line-utilities"]
+authors = ["Nabil Tounarti <nabil.tounarti0@gmail.com>"]
+readme = "README.md"
+
+[package.metadata.release-plz]
+independent = true
 
 [[bin]]
 name = "user-cli"
 path = "src/main.rs"
 
 [dependencies]
-user-lib = { path = "../user-lib" }
+user-lib = { path = "../user-lib", version = "0.1.0" }
 clap = { workspace = true }
 anyhow = { workspace = true }
+serde = { workspace = true }
 serde_json = { workspace = true }

@@ -1,7 +1,19 @@
 [package]
 name = "user-lib"
 version = "0.1.0"
-edition = "2024"
+edition = "2021"
+description = "Core user management library"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/your-username/user-management-system"
+homepage = "https://github.com/your-username/user-management-system"
+documentation = "https://docs.rs/user-lib"
+keywords = ["user", "management", "authentication"]
+categories = ["authentication"]
+authors = ["Your Name <your.email@example.com>"]
+readme = "README.md"
+
+[package.metadata.release-plz]
+independent = true
 
 [dependencies]
 serde = { workspace = true }

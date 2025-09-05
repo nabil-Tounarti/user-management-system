@@ -9,6 +9,10 @@ members = [
     "user-lib",
     "user-cli"
 ]
+default-members = [
+    "user-lib",
+    "user-cli",
+]
 
 [workspace.dependencies]
 serde = { version = "1.0", features = ["derive"] }
