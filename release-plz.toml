@@ -36,7 +36,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 """
-commit_types = ["feat", "fix", "chore", "docs"]
+commit_parsers = [
+  { message = "^feat", group = "Features" },
+  { message = "^fix", group = "Bug Fixes" },
+  { message = "^chore", group = "Chores" },
+  { message = "^docs", group = "Documentation" },
+]
+
 
 
 # Commit types to include in changelog
