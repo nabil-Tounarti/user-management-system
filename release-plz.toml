@@ -28,6 +28,7 @@ git_release_name = "user-cli-v{{ version }}"
 # Changelog configuration
 [changelog]
 header = """# Changelog
+commit_types = ["feat", "fix", "chore", "docs"]
 
 All notable changes to this project will be documented in this file.
 
