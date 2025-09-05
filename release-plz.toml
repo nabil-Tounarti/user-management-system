@@ -1,59 +1,82 @@
-# release-plz configuration for workspace with independent releases
+# release-plz configuration for workspace with independent package releases
 [workspace]
-# Set to false to enable independent releases for each package
-independent_releases = true
-
-# Git configuration
-[workspace.git]
 # Enable conventional commits parsing
-conventional_commits = true
-# Release branch (usually main or master)
-release_branch = "main"
+git_release_enable = true
+git_tag_enable = true
+changelog_update = true
 
 # Package-specific configurations
 [[package]]
 name = "user-lib"
 # Changelog path relative to package root
 changelog_path = "CHANGELOG.md"
-# Enable changelog generation
-changelog_update = true
-# Tag format for this package
-tag_name = "user-lib-v{{version}}"
-# Release title format
-release_name = "user-lib v{{version}}"
+# Custom git tag pattern for this package
+git_tag_name = "user-lib-v{{ version }}"
+# Custom git release name pattern
+git_release_name = "user-lib-v{{ version }}"
 
 [[package]]
 name = "user-cli"
-# Changelog path relative to package root  
+# Changelog path relative to package root
 changelog_path = "CHANGELOG.md"
-# Enable changelog generation
-changelog_update = true
-# Tag format for this package
-tag_name = "user-cli-v{{version}}"
-# Release title format
-release_name = "user-cli v{{version}}"
+# Custom git tag pattern for this package
+git_tag_name = "user-cli-v{{ version }}"
+# Custom git release name pattern
+git_release_name = "user-cli-v{{ version }}"
 
-# Optional: Global changelog settings
-[workspace.changelog]
-# Header for the changelog
+# Changelog configuration
+[changelog]
 header = """# Changelog
 
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
 """
 
 # Commit types to include in changelog
-[workspace.changelog.body]
-# Standard conventional commit types
-feat = "### Features"
-fix = "### Bug Fixes" 
-docs = "### Documentation"
-style = "### Styling"
-refactor = "### Refactoring"
-perf = "### Performance"
-test = "### Testing"
-build = "### Build System"
-ci = "### CI/CD"
-chore = "### Miscellaneous"
+[[changelog.commit_parsers]]
+message = "^feat"
+group = "Added"
+
+[[changelog.commit_parsers]]
+message = "^fix"
+group = "Fixed"
+
+[[changelog.commit_parsers]]
+message = "^docs"
+group = "Documentation"
+
+[[changelog.commit_parsers]]
+message = "^style"
+group = "Styling"
+
+[[changelog.commit_parsers]]
+message = "^refactor"
+group = "Refactoring"
+
+[[changelog.commit_parsers]]
+message = "^perf"
+group = "Performance"
+
+[[changelog.commit_parsers]]
+message = "^test"
+group = "Testing"
+
+[[changelog.commit_parsers]]
+message = "^build"
+group = "Build System"
+
+[[changelog.commit_parsers]]
+message = "^ci"
+group = "CI/CD"
+
+[[changelog.commit_parsers]]
+message = "^chore"
+group = "Miscellaneous"
+
+[[changelog.commit_parsers]]
+message = "^.*"
+group = "Other"
