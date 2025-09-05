@@ -28,7 +28,6 @@ git_release_name = "user-cli-v{{ version }}"
 # Changelog configuration
 [changelog]
 header = """# Changelog
-commit_types = ["feat", "fix", "chore", "docs"]
 
 All notable changes to this project will be documented in this file.
 
@@ -37,6 +36,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 """
+commit_types = ["feat", "fix", "chore", "docs"]
+
 
 # Commit types to include in changelog
 [[changelog.commit_parsers]]
