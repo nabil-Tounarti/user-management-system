@@ -1,0 +1,67 @@
+# release-plz configuration for workspace with independent releases
+[workspace]
+# Set to false to enable independent releases for each package
+independent_releases = true
+
+# Git configuration
+[workspace.git]
+# Enable conventional commits parsing
+conventional_commits = true
+# Release branch (usually main or master)
+release_branch = "main"
+
+# Package-specific configurations
+[[package]]
+name = "user-lib"
+# Changelog path relative to package root
+changelog_path = "CHANGELOG.md"
+# Enable changelog generation
+changelog_update = true
+# Tag format for this package
+tag_name = "user-lib-v{{version}}"
+# Release title format
+release_name = "user-lib v{{version}}"
+
+[[package]]
+name = "user-cli"
+# Changelog path relative to package root  
+changelog_path = "CHANGELOG.md"
+# Enable changelog generation
+changelog_update = true
+# Tag format for this package
+tag_name = "user-cli-v{{version}}"
+# Release title format
+release_name = "user-cli v{{version}}"
+
+# Optional: Global changelog settings
+[workspace.changelog]
+# Header for the changelog
+header = """# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+"""
+
+# Commit types to include in changelog
+[workspace.changelog.body]
+# Standard conventional commit types
+feat = "### Features"
+fix = "### Bug Fixes" 
+docs = "### Documentation"
+style = "### Styling"
+refactor = "### Refactoring"
+perf = "### Performance"
+test = "### Testing"
+build = "### Build System"
+ci = "### CI/CD"
+chore = "### Miscellaneous"
+
+# Optional: PR and commit linking
+[workspace.remote]
+# GitHub repository (adjust to your repo)
+name = "your-username/user-management-system"
+# Enable linking to commits and PRs
+link_commits = true
+link_prs = true
