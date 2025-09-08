@@ -1,0 +1,27 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "draft-pull-request": true,
+  "include-component-in-tag": true,
+  "include-v-in-tag": true,
+  "separate-pull-requests": true,
+  "release-type": "rust",
+  "packages": {
+    "post-compute": {
+      "component": "post-compute",
+      "package-name": "tee-worker-post-compute"
+    },
+    "pre-compute": {
+      "component": "pre-compute",
+      "package-name": "tee-worker-pre-compute"
+    },
+    "shared": {
+      "component": "shared",
+      "package-name": "shared"
+    }
+  },
+  "plugins": [
+    {
+      "type": "cargo-workspace"
+    }
+  ]
+}
