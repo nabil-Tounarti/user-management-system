@@ -6,19 +6,15 @@
   "separate-pull-requests": false,
   "release-type": "rust",
   "packages": {
-    "post-compute": {
-      "component": "post-compute",
-      "package-name": "tee-worker-post-compute"
+    "user-cli": {
+      "component": "user-cli",
+      "package-name": "user-cli"
     },
-    "pre-compute": {
-      "component": "pre-compute",
-      "package-name": "tee-worker-pre-compute"
-    },
-    "shared": {
-      "component": "shared",
-      "package-name": "shared"
+    "user-lib": {
+      "component": "user-lib",
+      "package-name": "user-lib"
     }
-  },
+    },
   "plugins": [
     {
       "type": "cargo-workspace"
