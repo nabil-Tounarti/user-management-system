@@ -14,10 +14,5 @@
       "component": "user-lib",
       "package-name": "user-lib"
     }
-    },
-  "plugins": [
-    {
-      "type": "cargo-workspace"
     }
-  ]
 }
