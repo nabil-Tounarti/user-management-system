@@ -12,7 +12,6 @@ struct Cli {
     #[arg(short, long, default_value = "users.json")]
     file: String,
 
-    /// Output format for results
     #[arg(short = 'F', long = "format", value_enum, default_value_t = OutputFormat::Table)]
     format: OutputFormat,
 }
