@@ -98,7 +98,6 @@ impl UserManager {
         let content = fs::read_to_string(path)?;
         self.users = serde_json::from_str(&content)?;
         
-        // Update next_id to be one more than the highest existing id
         self.next_id = self.users.keys().max().unwrap_or(&0) + 1;
         Ok(())
     }
