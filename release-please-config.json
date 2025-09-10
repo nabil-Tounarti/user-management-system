@@ -4,7 +4,7 @@
   "include-component-in-tag": true,
   "include-v-in-tag": true,
   "always-update": true,
-  "separate-pull-requests": false,
+  "separate-pull-requests": true,
   "release-type": "rust",
   "packages": {
     "user-cli": {
