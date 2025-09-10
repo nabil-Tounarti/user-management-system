@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/nabil-Tounarti/user-management-system/compare/user-lib-v0.4.0...user-lib-v0.4.1) (2025-09-10)
+
+
+### Bug Fixes
+
+* **user-lib,user-cli:** fix vulnerability in user-cli ([daa413d](https://github.com/nabil-Tounarti/user-management-system/commit/daa413d2f78cf1961a16f0800091140b3c4cfeb9))
+
 ## [0.4.0](https://github.com/nabil-Tounarti/user-management-system/compare/user-lib-v0.3.0...user-lib-v0.4.0) (2025-09-10)
 
 
