@@ -20,7 +20,7 @@ name = "user-cli"
 path = "src/main.rs"
 
 [dependencies]
-user-lib = { path = "../user-lib", version = "0.1.0" }
+user-lib = { path = "../user-lib", version = "0.3.0" }
 clap = { workspace = true }
 anyhow = { workspace = true }
 serde = { workspace = true }
